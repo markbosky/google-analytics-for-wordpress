@@ -1,4 +1,4 @@
-# Google Analytics for WordPress by MonsterInsights 5.X Branch
+# Google Analytics for WordPress by MonsterInsights 5.5.x Branch
 
 This branch is being temporarily maintained on the repository for historical purposes. 
 
