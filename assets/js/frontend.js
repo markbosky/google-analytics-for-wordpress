@@ -141,7 +141,7 @@ var MonsterInsights = function(){
 		var type                = 'unknown';
 		var link 				= el.href;
 		var extension           = __gaTrackerGetExtension( el.href );
-		var currentdomain       = __gaTrackerGetDomain();
+		var currentdomain       = document.domain;
 		var hostname            = el.hostname;
 		var protocol            = el.protocol;
 		var pathname       		= el.pathname;
@@ -149,13 +149,13 @@ var MonsterInsights = function(){
 
 		if ( link.match( /^javascript\:/i ) ) {
 			type = 'internal'; // if it's a JS link, it's internal
-		} else if ( __gaTrackerStringTrim( protocol ) == 'tel' || __gaTrackerStringTrim( protocol ) == 'tel:' ) { /* If it's an telephone */
+		} else if ( __gaTrackerStringTrim( protocol ) == 'tel' || __gaTrackerStringTrim( protocol ) == 'tel:' ) { /* If it's a telephone */
 			type = "tel"; 
 		} else if ( __gaTrackerStringTrim( protocol ) == 'mailto' ||  __gaTrackerStringTrim( protocol ) == 'mailto:' ) { /* If it's an email */
 			type = "mailto"; 
-		} else if ( hostname.length > 0 && currentdomain.length > 0 && ! hostname.endsWith( currentdomain ) ) { /* If it's a outbound */
+		} else if ( hostname.length > 0 && currentdomain.length > 0 &&  hostname !== currentdomain  ) { /* If it's a outbound */
 			type = "external"; 
-		} else if ( inbound_paths.length > 0 && pathname.length > 0 ) { /* If it's a internal as outbound */
+		} else if ( inbound_paths.length > 0 && pathname.length > 0 ) { /* If it's an internal as outbound */
 			for ( index = 0, len = inbound_paths.length; index < len; ++index ) {
 				if ( inbound_paths[ index ].length > 0 && pathname.startsWith( inbound_paths[ index ] ) ) {
 					type = "internal-as-outbound";
